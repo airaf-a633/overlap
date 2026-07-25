@@ -48,21 +48,21 @@
     revealEls.forEach(function (el) { revealObserver.observe(el); });
   }
 
-  // Timeline bands draw in when scrolled into view
-  var timeline = document.querySelector('.timeline');
-  if (timeline && 'IntersectionObserver' in window) {
+  // Bands draw in when scrolled into view
+  var bandEls = document.querySelectorAll('.timeline, .instrument');
+  if (bandEls.length && 'IntersectionObserver' in window) {
     var tlObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            timeline.classList.add('in-view');
+            entry.target.classList.add('in-view');
             tlObserver.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.35 }
     );
-    tlObserver.observe(timeline);
+    bandEls.forEach(function (el) { tlObserver.observe(el); });
   }
 
   // Live clocks — the shared working window is the whole pitch, so show it real.
@@ -70,6 +70,8 @@
   var clockPk = document.getElementById('clock-pk');
   var zoneUs = document.getElementById('zone-us');
   var status = document.getElementById('shift-status');
+  var nowMark = document.getElementById('oi-now');
+  var footerClock = document.getElementById('footer-clock');
 
   function partsIn(tz, date) {
     var fmt = new Intl.DateTimeFormat('en-US', {
@@ -93,15 +95,29 @@
 
     clockUs.textContent = us.hour + ':' + us.minute + ' ' + us.dayPeriod;
     clockPk.textContent = pk.hour + ':' + pk.minute + ' ' + pk.dayPeriod;
-    if (zoneUs) zoneUs.textContent = 'Your side · ' + us.timeZoneName;
+    if (zoneUs) zoneUs.textContent = 'Your side · New York, ' + us.timeZoneName;
 
     // Team is on shift 6 AM – 3 PM ET, weekdays.
     var etHour = parseInt(us.hour, 10) % 12 + (us.dayPeriod === 'PM' ? 12 : 0);
+    var etFrac = etHour + parseInt(us.minute, 10) / 60;
     var weekend = us.weekday === 'Sat' || us.weekday === 'Sun';
-    var onShift = !weekend && etHour >= 6 && etHour < 15;
+    var onShift = !weekend && etFrac >= 6 && etFrac < 15;
+    var bothOnline = !weekend && etFrac >= 9 && etFrac < 15;
 
-    status.textContent = onShift ? 'Team on shift' : 'Next shift 6 AM ET';
+    status.textContent = bothOnline ? 'Both teams online now'
+                       : onShift    ? 'Our team on shift'
+                                    : 'Next shift 6 AM ET';
     status.classList.toggle('off', !onShift);
+
+    // Live "now" needle across the 24-hour track.
+    if (nowMark) {
+      nowMark.style.left = (etFrac / 24 * 100).toFixed(2) + '%';
+      nowMark.hidden = false;
+    }
+
+    if (footerClock) {
+      footerClock.innerHTML = 'Lahore, PK · <b>' + pk.hour + ':' + pk.minute + ' ' + pk.dayPeriod + '</b> local';
+    }
   }
 
   if (clockUs && clockPk && status) {

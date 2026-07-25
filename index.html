@@ -6,9 +6,12 @@
 <title>Overlap — Complex Engineering &amp; Premium Design, In Your Time Zone</title>
 <meta name="description" content="Overlap is a design and engineering studio building multi-tenant SaaS platforms, production APIs, and AI features — staffed in Pakistan, running on US business hours, so you never wait a day for a reply.">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<meta name="theme-color" content="#F0F0EE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500&f[]=switzer@400,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -70,62 +73,79 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <div class="hero-grid">
-        <div>
-          <span class="eyebrow">Design &amp; engineering studio</span>
-          <h1 style="margin-top:18px;">Complex engineering,<br>premium design — on <em>your</em> clock.</h1>
-          <p class="lead">Overlap builds multi-tenant SaaS platforms, production APIs, and AI features for US companies. Our engineers work from Pakistan on a shifted schedule, so the hours you're online are the hours we're online.</p>
-          <div class="hero-cta">
-            <a href="#book" class="btn btn-dark">Book a technical call</a>
-            <a href="#services" class="btn btn-outline">See what we build</a>
+      <div class="hero-copy">
+        <span class="eyebrow">Design &amp; engineering studio</span>
+        <h1>Complex engineering,<br>premium design — on <em>your</em> clock.</h1>
+        <p class="lead">Overlap builds multi-tenant SaaS platforms, production APIs, and AI features for US companies. Our engineers work from Pakistan on a shifted schedule, so the hours you're online are the hours we're online.</p>
+        <div class="hero-cta">
+          <a href="#book" class="btn btn-dark">Book a technical call</a>
+          <a href="#services" class="btn btn-outline">See what we build</a>
+        </div>
+        <div class="proof">
+          <p class="proof-text"><b>Senior engineers, not a ticket queue.</b> You work directly with the people writing the code — in real time, during your business day.</p>
+        </div>
+      </div>
+
+      <!-- Signature: the overlap, live. Two working days as two lights;
+           where they cross, the browser blends them for real. -->
+      <div class="instrument glass" id="instrument" data-reveal>
+        <div class="oi-head">
+          <div class="oi-clock" data-side="us">
+            <span class="oi-label" id="zone-us">Your side · New York</span>
+            <span class="oi-time" id="clock-us">—</span>
           </div>
-          <div class="proof">
-            <p class="proof-text"><b>Senior engineers, not a ticket queue.</b> You work directly with the people writing the code — in real time, during your business day.</p>
+          <span class="oi-status" id="shift-status">Checking shift…</span>
+          <div class="oi-clock" data-side="pk">
+            <span class="oi-label">Our side · Lahore</span>
+            <span class="oi-time" id="clock-pk">—</span>
           </div>
         </div>
-
-        <div class="hero-visual">
-          <div class="blur-orb"></div>
-          <div class="tz-card">
-            <div class="tz-head">
-              <span class="eyebrow">Right now</span>
-              <span class="tz-status" id="shift-status">Checking shift…</span>
-            </div>
-            <div class="tz-clocks">
-              <div class="tz-clock us">
-                <div class="city">New York</div>
-                <div class="time" id="clock-us">—</div>
-                <div class="zone" id="zone-us">Your side</div>
-              </div>
-              <div class="tz-clock pk">
-                <div class="city">Lahore</div>
-                <div class="time" id="clock-pk">—</div>
-                <div class="zone">Our side</div>
-              </div>
-            </div>
-            <div class="tz-foot">
-              <div class="tz-foot-row">
-                <span>Shared working window</span>
-                <b>6 hours, every business day</b>
-              </div>
-              <div class="tz-foot-row">
-                <span>Typical reply inside it</span>
-                <b>Minutes, not overnight</b>
-              </div>
-            </div>
-          </div>
+        <div class="oi-track">
+          <div class="oi-seg oi-seg-pk"></div>
+          <div class="oi-seg oi-seg-us"></div>
+          <div class="oi-shared"><span>6 hrs live</span></div>
+          <div class="oi-now" id="oi-now" hidden></div>
+        </div>
+        <div class="oi-scale">
+          <span>12 AM</span><span>4 AM</span><span>8 AM</span><span>12 PM</span><span>4 PM</span><span>8 PM</span><span>12 AM</span>
+        </div>
+        <div class="oi-legend">
+          <div class="leg"><span class="swatch us"></span>Your business day · 9 AM–6 PM ET</div>
+          <div class="leg"><span class="swatch pk"></span>Our shift · 6 AM–3 PM ET</div>
+          <div class="leg"><span class="swatch both"></span>Both online · 9 AM–3 PM ET</div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- CLIENT LOGOS
+       PLACEHOLDER: drop each client's logo into the <img> and delete the
+       class="ph" from that slot. Do not ship these as-is — an empty slot
+       is honest, an invented logo is not. -->
+  <section class="clients tight-top">
+    <div class="wrap">
+      <div class="clients-head">
+        <span>Trusted by teams at</span>
+        <div class="rule"></div>
+      </div>
+      <div class="clients-row" data-reveal-group>
+        <div class="client-slot ph">Client logo 1</div>
+        <div class="client-slot ph">Client logo 2</div>
+        <div class="client-slot ph">Client logo 3</div>
+        <div class="client-slot ph">Client logo 4</div>
+        <div class="client-slot ph">Client logo 5</div>
+        <div class="client-slot ph">Client logo 6</div>
+      </div>
+    </div>
+  </section>
+
   <!-- ABOUT -->
-  <section id="about">
+  <section id="about" class="tight-top">
     <div class="wrap">
       <div class="about-grid">
         <div class="about-copy" data-reveal>
           <span class="eyebrow">About Overlap</span>
-          <h2 style="margin-top:14px;">Offshore cost.<br>Onshore working hours.</h2>
+          <h2>Offshore cost.<br>Onshore working hours.</h2>
           <p>Hiring senior engineering talent in the US is expensive. Hiring offshore usually means sending a question at 4 PM and getting an answer the next morning — every single time. Most teams end up choosing which problem they'd rather have.</p>
           <p>Overlap removes the trade. Our team is based in Lahore, Pakistan, which keeps your build economics sane — and we run a shifted schedule that lands squarely inside the US business day, so standups, reviews, and blockers get handled live instead of in a 12-hour relay.</p>
         </div>
@@ -171,28 +191,28 @@
         <p>Not brochure sites and template installs. Overlap takes on systems with real architectural weight — custom logic, live data, and integrations that have to hold up in production.</p>
       </div>
       <div class="services-grid" data-reveal-group>
-        <div class="service-card">
+        <div class="service-card glass">
           <div class="service-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="6" rx="2" stroke="#1F6F5C" stroke-width="1.6"/><rect x="3" y="14" width="11" height="6" rx="2" stroke="#1F6F5C" stroke-width="1.6"/><path d="M18 14v6" stroke="#1F6F5C" stroke-width="1.6" stroke-linecap="round"/></svg>
           </div>
           <h3>Multi-tenant SaaS platforms</h3>
           <p>Tenant isolation, role-based access control, subscription billing, and admin tooling — architected so adding your hundredth customer doesn't mean rewriting the foundation.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card glass">
           <div class="service-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 8L3 12l4 4M17 8l4 4-4 4" stroke="#1F6F5C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 5l-4 14" stroke="#1F6F5C" stroke-width="1.6" stroke-linecap="round"/></svg>
           </div>
           <h3>APIs &amp; systems integration</h3>
           <p>RESTful APIs that sync cleanly with the architecture you already run — POS systems, ERPs, payment processors, and legacy internal services that were never built to talk to anything.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card glass">
           <div class="service-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke="#1F6F5C" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="3.2" stroke="#1F6F5C" stroke-width="1.6"/></svg>
           </div>
           <h3>AI features, in production</h3>
           <p>Real-time AI built into the product rather than bolted beside it — streaming responses, retrieval over your own data, and background pipelines on Next.js and PostgreSQL.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card glass">
           <div class="service-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#1F6F5C" stroke-width="1.6"/><path d="M8 9h8M8 13h5" stroke="#1F6F5C" stroke-width="1.6" stroke-linecap="round"/></svg>
           </div>
@@ -210,13 +230,53 @@
     </div>
   </section>
 
-  <!-- THE OVERLAP MODEL -->
-  <section id="overlap" style="padding-top:0;">
+  <!-- SELECTED WORK
+       PLACEHOLDER: replace each .work-shot's contents with
+       <img src="assets/work-N.jpg" alt="..."> and delete class="ph".
+       Project names and copy below are placeholders too — swap for real ones. -->
+  <section id="work" class="tight-top">
     <div class="wrap">
-      <div class="spotlight-section">
-        <div class="section-head" style="margin-bottom:0;" data-reveal>
-          <span class="eyebrow on-dark">Why we're called Overlap</span>
-          <h2 style="color:#fff;">Your 9-to-5 is<br>our 9-to-5.</h2>
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Selected work</span>
+        <h2>Systems we've shipped.</h2>
+        <p>A few of the builds our engineers have taken from architecture to production.</p>
+      </div>
+      <div class="work-grid" data-reveal-group>
+        <div class="work-card glass">
+          <div class="work-shot ph">Project screenshot 1</div>
+          <div class="work-meta">
+            <h3>Project name</h3>
+            <p>One line on what the system does and what was hard about it.</p>
+            <div class="work-tags"><span>SaaS</span><span>Next.js</span><span>PostgreSQL</span></div>
+          </div>
+        </div>
+        <div class="work-card glass">
+          <div class="work-shot ph">Project screenshot 2</div>
+          <div class="work-meta">
+            <h3>Project name</h3>
+            <p>One line on what the system does and what was hard about it.</p>
+            <div class="work-tags"><span>API</span><span>Node</span><span>AWS</span></div>
+          </div>
+        </div>
+        <div class="work-card glass">
+          <div class="work-shot ph">Project screenshot 3</div>
+          <div class="work-meta">
+            <h3>Project name</h3>
+            <p>One line on what the system does and what was hard about it.</p>
+            <div class="work-tags"><span>AI</span><span>React</span><span>Redis</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE OVERLAP MODEL -->
+  <section id="overlap" class="tight-top">
+    <div class="wrap">
+      <div class="spotlight-section glass">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Why we're called Overlap</span>
+          <h2>Your 9-to-5 is<br>our 9-to-5.</h2>
           <p>Offshore engineering usually costs you a day per question. We shifted our schedule instead — our team is on shift while your team is at their desks.</p>
         </div>
 
@@ -262,25 +322,36 @@
         <h2>Engineer-led, all<br>the way down.</h2>
         <p>There's no figurehead here who takes the call and then disappears. The people who scope your build are the people who write it.</p>
       </div>
+      <!-- PLACEHOLDER: replace each .team-photo's contents with
+           <img src="assets/team-N.jpg" alt="..."> and delete class="ph". -->
       <div class="team-grid" data-reveal-group>
-        <div class="team-card">
-          <h3>A lead architect on every build</h3>
-          <p>Engagements are scoped and owned by a senior engineer with 16+ years of production experience — the person accountable for the architecture, in your calls from day one.</p>
+        <div class="team-card glass">
+          <div class="team-photo ph">Team photo 1</div>
+          <div class="team-body">
+            <h3>A lead architect on every build</h3>
+            <p>Engagements are scoped and owned by a senior engineer with 16+ years of production experience — the person accountable for the architecture, in your calls from day one.</p>
+          </div>
         </div>
-        <div class="team-card">
-          <h3>A US point of contact</h3>
-          <p>A US-based representative on a local number handles first contact and scheduling, so getting a technical conversation booked never depends on catching someone overseas.</p>
+        <div class="team-card glass">
+          <div class="team-photo ph">Team photo 2</div>
+          <div class="team-body">
+            <h3>A US point of contact</h3>
+            <p>A US-based representative on a local number handles first contact and scheduling, so getting a technical conversation booked never depends on catching someone overseas.</p>
+          </div>
         </div>
-        <div class="team-card">
-          <h3>Specialists matched to the work</h3>
-          <p>Backend, frontend, infrastructure, and design specialists join the pod as the build calls for them — and step back out when it doesn't.</p>
+        <div class="team-card glass">
+          <div class="team-photo ph">Team photo 3</div>
+          <div class="team-body">
+            <h3>Specialists matched to the work</h3>
+            <p>Backend, frontend, infrastructure, and design specialists join the pod as the build calls for them — and step back out when it doesn't.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PROCESS -->
-  <section id="process">
+  <section id="process" class="tight-top">
     <div class="wrap">
       <div class="section-head" data-reveal>
         <span class="eyebrow">How we start</span>
@@ -312,7 +383,7 @@
   </section>
 
   <!-- ENGAGEMENT MODELS -->
-  <section id="pricing">
+  <section id="pricing" class="tight-top">
     <div class="wrap">
       <div class="section-head" data-reveal>
         <span class="eyebrow">Engagement models</span>
@@ -320,7 +391,7 @@
         <p>Start with a fixed build or embed a standing pod. Every model runs on your business hours from day one.</p>
       </div>
       <div class="tiers-grid" data-reveal-group>
-        <div class="tier">
+        <div class="tier glass">
           <div class="tier-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 11l2 2 4-4" stroke="#1F6F5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1F6F5C" stroke-width="1.6"/></svg>
           </div>
@@ -337,7 +408,7 @@
           <a href="#book" class="btn btn-outline btn-block">Scope a build</a>
         </div>
 
-        <div class="tier highlight">
+        <div class="tier glass highlight">
           <span class="ribbon">Most common</span>
           <div class="tier-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="6" rx="2" stroke="#fff" stroke-width="1.6"/><rect x="3" y="14" width="11" height="6" rx="2" stroke="#fff" stroke-width="1.6"/><path d="M18 14v6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -356,7 +427,7 @@
           <a href="#book" class="btn btn-light btn-block">Book a call</a>
         </div>
 
-        <div class="tier">
+        <div class="tier glass">
           <div class="tier-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="#1F6F5C" stroke-width="1.6"/><path d="M3 19c1-3.4 3.3-5.1 6-5.1s5 1.7 6 5.1" stroke="#1F6F5C" stroke-width="1.6" stroke-linecap="round"/><path d="M17 9h5M19.5 6.5v5" stroke="#1F6F5C" stroke-width="1.6" stroke-linecap="round"/></svg>
           </div>
@@ -377,9 +448,9 @@
   </section>
 
   <!-- BOOK A CALL -->
-  <section id="book" style="padding-top:0;">
+  <section id="book" class="tight-top">
     <div class="wrap">
-      <div class="book-section">
+      <div class="book-section glass">
         <div class="book-grid">
           <div data-reveal>
             <span class="eyebrow">Get in touch</span>
@@ -424,9 +495,9 @@
   </section>
 
   <!-- CTA -->
-  <section id="contact" style="padding-top:0;">
+  <section id="contact">
     <div class="wrap">
-      <div class="cta-section" data-reveal>
+      <div class="cta-section glass" data-reveal>
         <div>
           <span class="eyebrow">Get in touch</span>
           <h2 style="margin-top:14px;">Tell us what<br>you're building.</h2>
@@ -442,7 +513,12 @@
 </main>
 
 <footer>
-  <div class="wrap footer-inner">
+  <!-- PLACEHOLDER: replace the .ph div below with
+       <img src="assets/footer.jpg" alt="The Overlap team in Lahore">
+       A wide team-or-workspace shot works best; the overlay keeps text legible. -->
+  <div class="footer-photo">
+    <div class="ph">Footer image — wide team or workspace photo</div>
+    <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
         <div class="logo">
@@ -475,9 +551,10 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Overlap. overlappp.com</span>
-      <span>Lahore, PK · Working US business hours</span>
+      <span class="footer-clock" id="footer-clock">Lahore, PK · Working US business hours</span>
     </div>
     <div class="footer-wordmark">OVERLAP</div>
+    </div>
   </div>
 </footer>
 
