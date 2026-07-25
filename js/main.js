@@ -1,4 +1,47 @@
 (function () {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------------------------------------------------------
+     Inertial scrolling.
+     Wheel/trackpad input is damped so the page glides to a stop instead
+     of snapping. Touch is left native — phones already have momentum
+     scrolling and hijacking it feels worse, not better. Skipped entirely
+     under reduced-motion, and skipped if the CDN script did not load, in
+     which case native scrolling just carries on.
+     --------------------------------------------------------------- */
+  var lenis = null;
+  if (window.Lenis && !reduceMotion) {
+    lenis = new window.Lenis({
+      duration: 1.05,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smoothWheel: true,
+      syncTouch: false,
+      touchMultiplier: 1.6
+    });
+
+    (function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    })(0);
+  }
+
+  // Anchor links: hand them to the scroller so in-page jumps ease the same
+  // way the wheel does, and clear the sticky header on arrival.
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      if (!lenis) return; // native scroll-behavior:smooth handles it
+      e.preventDefault();
+      // No offset here — Lenis honours the target's scroll-margin-top, so
+      // the header clearance is defined once in CSS and applies whether the
+      // jump is eased by Lenis or by native smooth scrolling.
+      lenis.scrollTo(target, { duration: 1.15 });
+    });
+  });
+
   // Sticky nav shadow on scroll
   var header = document.getElementById('site-header');
   function onScroll() {
@@ -23,6 +66,7 @@
   function openMenu() {
     panel.classList.add('open');
     document.body.style.overflow = 'hidden';
+    if (lenis) lenis.stop();   // don't let the page glide behind the overlay
     setExpanded(true);
     // Send focus into the panel once it has faded up, so keyboard users
     // land on the first link rather than behind the overlay.
@@ -34,6 +78,7 @@
     if (!panel.classList.contains('open')) return;
     panel.classList.remove('open');
     document.body.style.overflow = '';
+    if (lenis) lenis.start();
     setExpanded(false);
     if (returnFocus && openBtn) openBtn.focus();
   }

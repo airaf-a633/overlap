@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500&f[]=switzer@400,500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=11">
+<link rel="stylesheet" href="css/styles.css?v=12">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -559,6 +559,9 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=8"></script>
+<!-- Inertial scrolling. Loads before main.js, which feature-detects it —
+     if this request fails the page falls back to native scrolling. -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
+<script src="js/main.js?v=10"></script>
 </body>
 </html>

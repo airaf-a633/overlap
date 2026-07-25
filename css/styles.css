@@ -52,7 +52,17 @@
 }
 
 *{box-sizing:border-box; margin:0; padding:0;}
+/* Native smooth scroll is the fallback for anchor jumps when the inertial
+   scroller is unavailable. Once Lenis is running it drives scrolling itself
+   and this must be off, or the two fight over the same gesture. */
 html{scroll-behavior:smooth;}
+html.lenis,html.lenis body{ height:auto; }
+/* Keyed off `lenis` alone, not `lenis-smooth` — the latter is not applied in
+   every Lenis build, and if this selector misses, native smooth scrolling
+   stays on and fights the inertial scroller over the same gesture. */
+html.lenis{ scroll-behavior:auto; }
+html.lenis-stopped{ overflow:hidden; }
+html.lenis [data-lenis-prevent]{ overscroll-behavior:contain; }
 body{
   background:var(--ground);
   color:var(--ink);
