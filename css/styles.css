@@ -567,31 +567,30 @@ section.tight-top{ padding-top:0; }
    Footer — photographic band with the wordmark over it
    ========================================================= */
 footer{ position:relative; margin-top:20px; }
+/* No stock photography here. The band is the brand's own two light sources
+   — your day and ours — meeting over a dark ground, which is the same idea
+   the hero instrument states literally. Needs no asset, and can't be
+   mistaken for a team photo we don't have. Drop a real wide team shot into
+   .footer-photo > img later and it will layer in above this. */
 .footer-photo{
-  position:relative; min-height:440px; overflow:hidden;
+  position:relative; min-height:380px; overflow:hidden;
   border-radius:var(--r-xl) var(--r-xl) 0 0;
   margin:0 var(--gut);
   display:flex; flex-direction:column; justify-content:flex-end;
-  background:#23272E;
+  background:
+    radial-gradient(58% 105% at 14% 8%,  rgba(232,163,61,0.30), transparent 64%),
+    radial-gradient(58% 105% at 76% 4%,  rgba(31,111,92,0.38),  transparent 64%),
+    radial-gradient(120% 70% at 50% 118%, rgba(8,10,14,0.72),   transparent 72%),
+    #171B21;
 }
 .footer-photo > img{
   position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
 }
-/* Stands in for the photo, so it sits UNDER the legibility overlay and is
-   dark-toned — white footer text has to stay readable before the real
-   image lands. */
-.footer-photo .ph{
-  position:absolute; inset:0; z-index:0; border:none; border-radius:0;
-  align-items:flex-start; justify-content:flex-start;
-  padding:14px 18px; text-align:left; font-size:9.5px;
-  background:
-    repeating-linear-gradient(135deg, rgba(255,255,255,0.045) 0 12px, transparent 12px 24px),
-    #23272E;
-  color:rgba(255,255,255,0.34);
-}
+/* Keeps footer text legible whether the band is the gradient field or a
+   real photograph dropped in later. */
 .footer-photo::after{
   content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-  background:linear-gradient(to bottom, rgba(21,23,27,0.10) 0%, rgba(21,23,27,0.62) 62%, rgba(21,23,27,0.86) 100%);
+  background:linear-gradient(to bottom, rgba(12,14,18,0.12) 0%, rgba(12,14,18,0.55) 58%, rgba(12,14,18,0.82) 100%);
 }
 .footer-inner{ position:relative; z-index:2; width:100%; padding:0 34px 26px; }
 .footer-top{ display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:44px; padding-bottom:36px; }
