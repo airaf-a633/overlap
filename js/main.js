@@ -16,19 +16,44 @@
   var openBtn = document.getElementById('menu-open');
   var closeBtn = document.getElementById('menu-close');
 
+  function setExpanded(isOpen) {
+    if (openBtn) openBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  }
+
   function openMenu() {
     panel.classList.add('open');
     document.body.style.overflow = 'hidden';
+    setExpanded(true);
+    // Send focus into the panel once it has faded up, so keyboard users
+    // land on the first link rather than behind the overlay.
+    var first = panel.querySelector('a[href^="#"]:not(.logo)');
+    if (first) setTimeout(function () { first.focus(); }, 180);
   }
-  function closeMenu() {
+
+  function closeMenu(returnFocus) {
+    if (!panel.classList.contains('open')) return;
     panel.classList.remove('open');
     document.body.style.overflow = '';
+    setExpanded(false);
+    if (returnFocus && openBtn) openBtn.focus();
   }
+
   if (openBtn) openBtn.addEventListener('click', openMenu);
-  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (closeBtn) closeBtn.addEventListener('click', function () { closeMenu(true); });
   panel.querySelectorAll('a').forEach(function (a) {
-    a.addEventListener('click', closeMenu);
+    a.addEventListener('click', function () { closeMenu(false); });
   });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMenu(true);
+  });
+
+  // A resize past the breakpoint should not leave the panel stuck open.
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 960) closeMenu(false);
+  });
+
+  setExpanded(false);
 
   // Scroll reveal — content is visible by default (see CSS); this only
   // adds the "in-view" class that triggers the reveal transition.
@@ -43,7 +68,9 @@
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+      // Fires a little before the element is fully in view, so the stagger
+      // is already underway by the time it reaches comfortable reading height.
+      { threshold: 0.1, rootMargin: '0px 0px -90px 0px' }
     );
     revealEls.forEach(function (el) { revealObserver.observe(el); });
   }
