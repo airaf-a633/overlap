@@ -214,16 +214,26 @@ section.tight-top{ padding-top:0; }
 .section-head h2{ margin-top:18px; }
 .section-head p{ margin-top:20px; font-size:16.5px; }
 
-/* ---------- reveal ---------- */
+/* ---------- reveal ----------
+   Driven by an animation, not a transition, and by `translate` rather than
+   `transform`. The group selector (.js [data-reveal-group].in-view > *)
+   outranks every component rule, so doing this with transition+transform
+   silently cancelled both the hover lifts and the hover easing on
+   .tier / .service-card / .work-card. An animation touches neither
+   property, so components keep full control of their own interactions. */
+@keyframes revealUp{
+  from{ opacity:0; translate:0 20px; }
+  to  { opacity:1; translate:none; }
+}
 @media (prefers-reduced-motion: no-preference){
-  .js [data-reveal]{ opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
-  .js [data-reveal].in-view{ opacity:1; transform:none; }
-  .js [data-reveal-group] > *{ opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
-  .js [data-reveal-group].in-view > *{ opacity:1; transform:none; }
-  .js [data-reveal-group] > *:nth-child(2){ transition-delay:.08s; }
-  .js [data-reveal-group] > *:nth-child(3){ transition-delay:.16s; }
-  .js [data-reveal-group] > *:nth-child(4){ transition-delay:.24s; }
-  .js [data-reveal-group] > *:nth-child(5){ transition-delay:.32s; }
+  .js [data-reveal],
+  .js [data-reveal-group] > *{ opacity:0; }
+  .js [data-reveal].in-view{ animation:revealUp .7s cubic-bezier(.2,.8,.2,1) both; }
+  .js [data-reveal-group].in-view > *{ animation:revealUp .6s cubic-bezier(.2,.8,.2,1) both; }
+  .js [data-reveal-group].in-view > *:nth-child(2){ animation-delay:.08s; }
+  .js [data-reveal-group].in-view > *:nth-child(3){ animation-delay:.16s; }
+  .js [data-reveal-group].in-view > *:nth-child(4){ animation-delay:.24s; }
+  .js [data-reveal-group].in-view > *:nth-child(5){ animation-delay:.32s; }
 }
 
 /* =========================================================
@@ -484,14 +494,39 @@ section.tight-top{ padding-top:0; }
 .tier{
   border-radius:var(--r-lg); padding:32px 30px;
   display:flex; flex-direction:column; position:relative;
-  transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;
+  transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, border-color .35s ease;
 }
-.tier:hover{ transform:translateY(-4px); box-shadow:var(--lift); }
 .tier.highlight{
   background:
     radial-gradient(120% 80% at 50% 0%, rgba(232,163,61,0.26), transparent 62%),
     rgba(255,255,255,0.78);
   border-color:rgba(232,163,61,0.42);
+}
+
+/* --- interaction ---
+   The whole card is the target, not just the button at the bottom. The
+   button stays the real link; a stretched overlay extends its hit area
+   across the card, and :focus-within moves the ring onto the card so
+   keyboard and pointer users get the same affordance. */
+.tier .btn-block::after{
+  content:""; position:absolute; inset:0; z-index:1; border-radius:var(--r-lg);
+}
+.tier:hover,
+.tier:focus-within{
+  transform:translateY(-6px);
+  box-shadow:var(--lift);
+  border-color:rgba(31,111,92,0.34);
+}
+.tier.highlight:hover,
+.tier.highlight:focus-within{ border-color:rgba(232,163,61,0.62); }
+.tier:active{ transform:translateY(-3px); transition-duration:.1s; }
+.tier:focus-within{ outline:2px solid var(--teal); outline-offset:3px; }
+.tier.highlight:focus-within{ outline-color:var(--amber-deep); }
+.tier .btn-block:focus-visible{ outline:none; }
+.tier .btn-block{ transition:background .2s ease, color .2s ease, transform .2s ease; }
+.tier:hover .btn-outline{ background:var(--white); border-color:var(--white); }
+@media (prefers-reduced-motion: reduce){
+  .tier,.tier:hover,.tier:focus-within,.tier:active{ transform:none; }
 }
 .ribbon{
   position:absolute; top:24px; right:26px;
@@ -503,6 +538,26 @@ section.tight-top{ padding-top:0; }
   width:42px; height:42px; border-radius:12px; margin-bottom:22px;
   display:flex; align-items:center; justify-content:center;
   background:var(--white); border:1px solid var(--hair-soft);
+  transition:background .28s ease, border-color .28s ease, transform .35s cubic-bezier(.16,1,.3,1);
+}
+/* Icon colour is driven here, never from inline stroke attributes — CSS
+   beats presentation attributes, so a stale attr can't blank an icon out
+   the way stroke="#fff" did on the highlighted card. */
+.tier-icon svg *{ stroke:var(--teal); transition:stroke .28s ease; }
+.tier.highlight .tier-icon svg *{ stroke:var(--amber-deep); }
+.tier li svg *{ stroke:var(--teal); }
+.tier.highlight li svg *{ stroke:var(--amber-deep); }
+.tier:hover .tier-icon,
+.tier:focus-within .tier-icon{
+  transform:scale(1.07);
+  background:rgba(31,111,92,0.09); border-color:rgba(31,111,92,0.26);
+}
+.tier.highlight:hover .tier-icon,
+.tier.highlight:focus-within .tier-icon{
+  background:rgba(232,163,61,0.16); border-color:rgba(232,163,61,0.42);
+}
+@media (prefers-reduced-motion: reduce){
+  .tier:hover .tier-icon,.tier:focus-within .tier-icon{ transform:none; }
 }
 .tier h3{ font-size:22px; margin-bottom:10px; }
 .tier .tier-note{ font-size:14px; color:var(--ink-2); margin-bottom:22px; min-height:44px; line-height:1.55; }
