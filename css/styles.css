@@ -183,7 +183,7 @@ nav{display:flex; align-items:center; justify-content:space-between; padding:18p
 /* =========================================================
    Hero
    ========================================================= */
-.hero{padding:88px 0 60px; position:relative;}
+.hero{padding:88px 0 60px; position:relative; overflow-x:hidden;}
 .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:64px; align-items:center;}
 .hero h1{font-size:clamp(38px, 4.6vw, 60px);}
 .hero p.lead{font-size:17.5px; max-width:480px; margin-top:22px;}
@@ -491,6 +491,7 @@ footer{background:var(--ink); color:#fff; margin-top:60px; position:relative; ov
   .nav-cta .btn-outline{display:none;}
   .menu-toggle{display:flex;}
   section{padding:76px 0;}
+  .blur-orb{width:260px; height:260px; top:-70px; right:-90px;}
   .spotlight-section, .book-section, .cta-section{margin:0 20px; padding:50px 26px; border-radius:26px;}
   .services-grid{grid-template-columns:1fr;}
   .footer-top{grid-template-columns:1fr; gap:34px;}
