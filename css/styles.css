@@ -196,7 +196,7 @@ nav{display:flex; align-items:center; justify-content:space-between; padding:18p
 .proof-text{font-size:15px; color:var(--ink-soft); max-width:440px; line-height:1.6;}
 .proof-text b{color:var(--ink); font-weight:600;}
 
-/* hero visual: CGO portrait card */
+/* hero visual: live two-timezone card */
 .hero-visual{position:relative;}
 .blur-orb{
   position:absolute; width:440px; height:440px; border-radius:50%;
@@ -216,36 +216,39 @@ nav{display:flex; align-items:center; justify-content:space-between; padding:18p
   50%{transform:translate(-26px,20px) scale(1.06);}
 }
 
-.hero-card{
+.tz-card{
   background:var(--bg-panel);
   border:1px solid var(--line);
   border-radius:24px;
-  padding:16px;
+  padding:26px;
   box-shadow:var(--shadow-soft);
-  transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s cubic-bezier(.16,1,.3,1);
 }
-.hero-card:hover{transform:translateY(-6px); box-shadow:0 40px 70px -30px rgba(18,21,28,0.28);}
-.hero-card-body{padding:22px 10px 8px;}
-.hero-card-body .name{font-family:'Fraunces',serif; font-size:20px; font-weight:500;}
-.hero-card-body .role{font-size:13px; color:var(--muted); margin-top:2px;}
-.hero-card-body blockquote{
-  font-family:'Fraunces',serif; font-style:italic; font-weight:400;
-  font-size:16.5px; line-height:1.5; color:var(--ink-soft); margin-top:16px;
+.tz-head{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:22px;}
+.tz-status{
+  font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.06em;
+  padding:6px 12px; border-radius:100px;
+  background:var(--teal-tint); color:var(--teal-deep); white-space:nowrap;
 }
-.hero-card-body .credibility{
-  margin-top:18px; padding-top:16px; border-top:1px solid var(--line);
-  font-size:13px; color:var(--muted);
+.tz-status.off{background:var(--bg-soft); color:var(--muted);}
+.tz-clocks{display:flex; gap:14px;}
+.tz-clock{
+  flex:1; min-width:0; background:var(--bg); border:1px solid var(--line);
+  border-radius:14px; padding:16px 18px;
 }
-
-/* photo frame — fixed-aspect crop container for a real headshot */
-.photo-frame{
-  border-radius:16px; overflow:hidden; position:relative;
-  background:linear-gradient(150deg, var(--teal-tint), var(--amber-tint));
-  aspect-ratio:4/3;
+.tz-clock.us{border-left:3px solid var(--amber);}
+.tz-clock.pk{border-left:3px solid var(--teal);}
+.tz-clock .city{font-size:12.5px; color:var(--muted); font-weight:500;}
+.tz-clock .time{
+  font-family:'JetBrains Mono', monospace; font-size:24px; margin-top:8px;
+  color:var(--ink); font-variant-numeric:tabular-nums; letter-spacing:-0.01em;
 }
-.photo-frame.lg{aspect-ratio:1/1; border-radius:18px;}
-.photo-frame.dark{background:linear-gradient(150deg, #1B1F29, #223226);}
-.photo-frame img{width:100%; height:100%; object-fit:cover; display:block;}
+.tz-clock .zone{font-size:11.5px; color:var(--muted); margin-top:4px;}
+.tz-foot{margin-top:20px; padding-top:6px;}
+.tz-foot-row{
+  display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+  padding:12px 0; border-top:1px solid var(--line); font-size:13px; color:var(--muted);
+}
+.tz-foot-row b{color:var(--ink); font-weight:600; font-size:13.5px; text-align:right;}
 
 /* =========================================================
    Section shell
@@ -287,60 +290,83 @@ section{padding:108px 0;}
 }
 .service-card h3{font-size:19px; margin-bottom:10px; font-weight:500;}
 .service-card p{font-size:14.5px;}
-.service-card .num{
-  font-family:'JetBrains Mono'; font-size:11px; color:var(--muted); letter-spacing:.08em;
-  margin-bottom:16px; display:block;
+
+/* stack strip */
+.stack-strip{
+  display:flex; align-items:center; gap:24px; flex-wrap:wrap;
+  margin-top:34px; padding-top:26px; border-top:1px solid var(--line);
+}
+.stack-label{
+  font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted); white-space:nowrap;
+}
+.stack-items{display:flex; flex-wrap:wrap; gap:10px;}
+.stack-items span{
+  font-family:'JetBrains Mono', monospace; font-size:12px;
+  padding:7px 13px; border-radius:100px;
+  border:1px solid var(--line); background:var(--bg-panel); color:var(--ink-soft);
 }
 
 /* =========================================================
-   CGO spotlight (dark section)
+   Overlap model (dark section)
    ========================================================= */
 .spotlight-section{background:var(--ink); color:#fff; border-radius:36px; margin:0 40px; padding:80px 60px; overflow:hidden; position:relative;}
 .spotlight-section .section-head p{color:#A9AEBB;}
-.spotlight-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:60px; align-items:center; margin-top:20px;}
 
-.cgo-card{
-  background:#1B1F29; border:1px solid #2A2F3B; border-radius:24px; padding:20px;
-}
-.cgo-card .photo-frame.lg{margin-bottom:20px;}
-.cgo-card-head{padding:0 10px; margin-bottom:18px;}
-.cgo-card-head .name{font-family:'Fraunces',serif; font-size:22px; font-weight:500; color:#fff;}
-.cgo-card-head .role{font-size:13.5px; color:#9096A3; margin-top:4px;}
-.cgo-card blockquote{
-  padding:0 10px;
-  font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:18px; line-height:1.5; color:#D6D9E0;
-}
-.cgo-card .bio{margin:20px 10px 0; font-size:14px; color:#9096A3; line-height:1.7;}
-.bench-list{display:flex; flex-direction:column;}
-.bench-copy{color:#C7CBD6; font-size:15.5px; line-height:1.7; margin-bottom:28px;}
-.chip-row{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:44px;}
-.disc-chip{
-  font-family:'JetBrains Mono'; font-size:12px; letter-spacing:.04em;
-  padding:8px 14px; border-radius:100px; border:1px solid #2A2F3B; color:#C7CBD6;
-  background:#1B1F29;
-}
-
-.coverage-wrap{margin-top:6px;}
-.coverage-bar{
-  position:relative; height:14px; border-radius:100px; overflow:hidden;
+.timeline-wrap{margin-top:52px;}
+.timeline{
+  position:relative; height:68px; border-radius:14px; overflow:hidden;
   background:#1B1F29; border:1px solid #2A2F3B;
 }
-.coverage-bar .fill{
-  position:absolute; top:0; bottom:0; left:0; width:78%;
-  background:linear-gradient(90deg, var(--amber), var(--teal));
-  border-radius:100px;
+.tl-band{position:absolute; top:0; bottom:0;}
+.tl-band.us{background:linear-gradient(90deg, rgba(232,163,61,0.30), rgba(232,163,61,0.55));}
+.tl-band.pk{background:linear-gradient(90deg, rgba(31,111,92,0.40), rgba(31,111,92,0.65));}
+.tl-band.shared{
+  background:repeating-linear-gradient(45deg, rgba(255,255,255,0.16) 0 6px, transparent 6px 12px);
+  border-left:1px solid rgba(255,255,255,.45); border-right:1px solid rgba(255,255,255,.45);
+  display:flex; align-items:center; justify-content:center;
 }
-/* only animate the fill-in if JS confirms it can finish the animation — otherwise it's just visible at its correct width */
-.js .coverage-bar .fill{width:0; transition:width 1.3s cubic-bezier(.16,1,.3,1);}
-.js .coverage-bar .fill.filled{width:78%;}
-.coverage-caption{display:flex; justify-content:space-between; gap:12px; margin-top:12px; font-size:12.5px; color:#9096A3;}
-.coverage-caption span:first-child, .coverage-caption span:last-child{white-space:nowrap; flex-shrink:0;}
-.coverage-caption span:nth-child(2){text-align:center;}
+.tl-band.shared span{
+  font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.06em;
+  color:#fff; background:rgba(18,21,28,0.55); padding:5px 11px; border-radius:100px;
+  white-space:nowrap;
+}
+@media (prefers-reduced-motion: no-preference){
+  .js .tl-band{transform:scaleX(0); transform-origin:left; transition:transform .9s cubic-bezier(.16,1,.3,1);}
+  .js .tl-band.pk{transition-delay:.05s;}
+  .js .tl-band.us{transition-delay:.2s;}
+  .js .tl-band.shared{transition-delay:.45s;}
+  .js .timeline.in-view .tl-band{transform:scaleX(1);}
+}
+.timeline-hours{
+  display:flex; justify-content:space-between; margin-top:12px;
+  font-family:'JetBrains Mono', monospace; font-size:11px; color:#7C8190;
+}
+.timeline-legend{display:flex; gap:26px; margin-top:26px; flex-wrap:wrap;}
+.timeline-legend .leg{display:flex; align-items:center; gap:9px; font-size:13.5px; color:#C7CBD6;}
+.timeline-legend .swatch{width:12px; height:12px; border-radius:3px; flex-shrink:0;}
+.timeline-legend .swatch-hatch{
+  background:repeating-linear-gradient(45deg,#fff 0 3px,transparent 3px 6px);
+  border:1px solid rgba(255,255,255,.4);
+}
 
 .spotlight-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:52px;}
 .spotlight-stat{border-top:1px solid #2A2F3B; padding-top:18px;}
 .spotlight-stat .big{font-family:'Fraunces',serif; font-size:36px; font-weight:500;}
 .spotlight-stat .lab{font-size:13.5px; color:#9096A3; margin-top:6px;}
+
+/* =========================================================
+   Team
+   ========================================================= */
+.team-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+.team-card{
+  background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius-md);
+  padding:32px 28px; border-top:3px solid var(--teal);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.team-card:hover{transform:translateY(-4px); box-shadow:var(--shadow-lift);}
+.team-card h3{font-size:19px; font-weight:500; margin-bottom:12px;}
+.team-card p{font-size:14.5px;}
 
 /* =========================================================
    Process
@@ -475,7 +501,7 @@ footer{background:var(--ink); color:#fff; margin-top:60px; position:relative; ov
   .hero-grid{grid-template-columns:1fr;}
   .about-grid{grid-template-columns:1fr; gap:40px;}
   .services-grid{grid-template-columns:repeat(2,1fr);}
-  .spotlight-grid{grid-template-columns:1fr; gap:44px;}
+  .team-grid{grid-template-columns:1fr;}
   .tiers-grid{grid-template-columns:1fr; max-width:440px; margin:0 auto;}
   .tier.highlight{transform:none;}
   .book-grid{grid-template-columns:1fr;}
@@ -497,6 +523,8 @@ footer{background:var(--ink); color:#fff; margin-top:60px; position:relative; ov
   .footer-top{grid-template-columns:1fr; gap:34px;}
   .cta-form{flex-direction:column; align-items:stretch;}
   .cta-form input{min-width:0;}
-  .chip-row{gap:8px; margin-bottom:36px;}
-  .disc-chip{font-size:11px; padding:7px 12px;}
+  .tz-clocks{flex-direction:column;}
+  .tz-card{padding:22px;}
+  .timeline-legend{gap:14px; flex-direction:column;}
+  .tl-band.shared span{font-size:10.5px; padding:4px 8px;}
 }

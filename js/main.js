@@ -48,20 +48,64 @@
     revealEls.forEach(function (el) { revealObserver.observe(el); });
   }
 
-  // Coverage bar fill-in
-  var fill = document.querySelector('.coverage-bar .fill');
-  if (fill && 'IntersectionObserver' in window) {
-    var fillObserver = new IntersectionObserver(
+  // Timeline bands draw in when scrolled into view
+  var timeline = document.querySelector('.timeline');
+  if (timeline && 'IntersectionObserver' in window) {
+    var tlObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            fill.classList.add('filled');
-            fillObserver.unobserve(entry.target);
+            timeline.classList.add('in-view');
+            tlObserver.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.4 }
     );
-    fillObserver.observe(fill);
+    tlObserver.observe(timeline);
+  }
+
+  // Live clocks — the shared working window is the whole pitch, so show it real.
+  var clockUs = document.getElementById('clock-us');
+  var clockPk = document.getElementById('clock-pk');
+  var zoneUs = document.getElementById('zone-us');
+  var status = document.getElementById('shift-status');
+
+  function partsIn(tz, date) {
+    var fmt = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz, hour: 'numeric', minute: '2-digit', hour12: true,
+      weekday: 'short', timeZoneName: 'short'
+    });
+    var out = {};
+    fmt.formatToParts(date).forEach(function (p) { out[p.type] = p.value; });
+    return out;
+  }
+
+  function tick() {
+    var now = new Date();
+    var us, pk;
+    try {
+      us = partsIn('America/New_York', now);
+      pk = partsIn('Asia/Karachi', now);
+    } catch (e) {
+      return; // Intl timeZone unsupported — card keeps its static fallback text
+    }
+
+    clockUs.textContent = us.hour + ':' + us.minute + ' ' + us.dayPeriod;
+    clockPk.textContent = pk.hour + ':' + pk.minute + ' ' + pk.dayPeriod;
+    if (zoneUs) zoneUs.textContent = 'Your side · ' + us.timeZoneName;
+
+    // Team is on shift 6 AM – 3 PM ET, weekdays.
+    var etHour = parseInt(us.hour, 10) % 12 + (us.dayPeriod === 'PM' ? 12 : 0);
+    var weekend = us.weekday === 'Sat' || us.weekday === 'Sun';
+    var onShift = !weekend && etHour >= 6 && etHour < 15;
+
+    status.textContent = onShift ? 'Team on shift' : 'Next shift 6 AM ET';
+    status.classList.toggle('off', !onShift);
+  }
+
+  if (clockUs && clockPk && status) {
+    tick();
+    setInterval(tick, 30000);
   }
 })();
