@@ -572,15 +572,22 @@ footer{ position:relative; margin-top:20px; }
   border-radius:var(--r-xl) var(--r-xl) 0 0;
   margin:0 var(--gut);
   display:flex; flex-direction:column; justify-content:flex-end;
-  background:var(--ground-2);
+  background:#23272E;
 }
 .footer-photo > img{
   position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
 }
+/* Stands in for the photo, so it sits UNDER the legibility overlay and is
+   dark-toned — white footer text has to stay readable before the real
+   image lands. */
 .footer-photo .ph{
-  position:absolute; inset:0; z-index:2; border-radius:0; border:none;
-  align-items:flex-start; padding-top:40px;
-  color:rgba(255,255,255,0.75);
+  position:absolute; inset:0; z-index:0; border:none; border-radius:0;
+  align-items:flex-start; justify-content:flex-start;
+  padding:14px 18px; text-align:left; font-size:9.5px;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.045) 0 12px, transparent 12px 24px),
+    #23272E;
+  color:rgba(255,255,255,0.34);
 }
 .footer-photo::after{
   content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
